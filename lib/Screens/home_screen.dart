@@ -207,14 +207,13 @@ class HomeScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 38.h),
                       Expanded(
-                        child: ListView.separated(
+                        child: ReorderableListView.builder(
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           shrinkWrap: true,
-                          controller: ScrollController(),
                           physics: BouncingScrollPhysics(),
                           itemCount: resumeController.resumeList.length,
-                          separatorBuilder: (context, index) {
-                            return SizedBox(height: 24.h);
+                          onReorder: (oldIndex, newIndex) {
+                            resumeController.onReorder(oldIndex, newIndex);
                           },
                           itemBuilder: (context, index) {
                             var data = resumeController.resumeList[index!];
@@ -226,10 +225,12 @@ class HomeScreen extends StatelessWidget {
                             //         ? resume
                             //         : ResumeModel.fromJson(resume);
                             return Material(
+                              key: ValueKey(index),
                               borderRadius: BorderRadius.circular(8.sp),
                               elevation: 0,
                               child: Container(
                                 height: 161.h,
+                                margin: EdgeInsets.only(bottom: 24.h),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8.sp),
                                     color: Colors.white,
@@ -247,16 +248,6 @@ class HomeScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    // if (widget.heading != null) ...{
-                                    //   Text(
-                                    //     widget.heading.toString(),
-                                    //     style: CustomText().h3SemiBold,
-                                    //   ),
-                                    //   if (widget.subheading != null)
-                                    //     Text(widget.subheading.toString(),
-                                    //         style: CustomText().h4Regular.copyWith(color: Colors.grey)),
-                                    //   SizedBox(height: 16.h),
-                                    // },
                                     Column(children: [
                                       Container(
                                         decoration: BoxDecoration(
@@ -308,6 +299,17 @@ class HomeScreen extends StatelessWidget {
                                                         height: 20.h / 12.sp,
                                                         color: Colors.black)),
                                               ],
+                                            ),
+                                            Spacer(),
+                                            InkWell(
+                                              onTap: () {
+                                                resumeController
+                                                    .deleteResume(index);
+                                              },
+                                              child: Icon(
+                                                Icons.reorder_outlined,
+                                                color: AppColors.primaryColor,
+                                              ),
                                             )
                                           ],
                                         ),
@@ -362,17 +364,6 @@ class HomeScreen extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          // CustomButton(
-                                          //     height: 32.h,
-                                          //     width: 83.w,
-                                          //     disabled: false,
-                                          //     outLined: false,
-                                          //     fillColor:
-                                          //         Colors.blue.withOpacity(0.5),
-                                          //     prefixIcon:
-                                          //         Icons.visibility_outlined,
-                                          //     title: "View",
-                                          //     onTap: () {}),
                                           Spacer(),
                                           InkWell(
                                             onTap: () {

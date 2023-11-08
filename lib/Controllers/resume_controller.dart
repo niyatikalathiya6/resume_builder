@@ -19,4 +19,16 @@ class ResumeController extends GetxController {
     resumeList = box.read('resumeList') ?? [];
     update();
   }
+
+  onReorder(oldIndex, newIndex) async {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    var oResume = resumeList[oldIndex];
+    resumeList[oldIndex] = resumeList[newIndex];
+    resumeList[newIndex] = oResume;
+    await box.write("resumeList", resumeList);
+
+    update();
+  }
 }
