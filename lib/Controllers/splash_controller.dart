@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../Screens/SignUp/signup.dart';
+import '../Screens/home_screen.dart';
+import '../main.dart';
 
 class SplashManager extends GetxController {
   final BuildContext context;
@@ -9,8 +11,12 @@ class SplashManager extends GetxController {
 
   @override
   void onInit() async {
-    await Future.delayed(const Duration(seconds: 2))
-        .then((res) => {Navigator.pushNamed(context, SignUpScreen.routeName)});
+    bool isLogin = box.read("isLogin") ?? false;
+
+    await Future.delayed(const Duration(seconds: 2)).then((res) => {
+          Navigator.pushNamed(
+              context, isLogin ? HomeScreen.routeName : SignUpScreen.routeName)
+        });
     super.onInit();
   }
 }
