@@ -8,6 +8,7 @@ environment:
   #flutter_lints: ^2.0.0
 
 dependencies:
+  dropdown_button2: ^2.3.9
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0
@@ -15,6 +16,8 @@ dependencies:
   get: ^4.6.6
   get_storage: ^2.1.1
   google_fonts: ^6.1.0
+  intl: ^0.18.1
+  intl_phone_field: ^3.2.0
 
 dev_dependencies:
   flutter_test:

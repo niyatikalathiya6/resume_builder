@@ -5,6 +5,7 @@ import 'package:resume_builder/Controllers/signup_controller.dart';
 import 'package:resume_builder/main.dart';
 import '../../Utils/InputWidget.dart';
 import '../../Utils/constants.dart';
+import '../home_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -74,7 +75,8 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 24.h),
                 InkWell(
-                  onTap: () async {
+                  onTap: (
+                  ) async {
                     await signupController
                         .validateEmailAndPassword()
                         .then((value) async {

@@ -84,48 +84,56 @@ class _InputWidgetState extends State<InputWidget> {
                   onChanged: widget.onChanged,
                   onTap: widget.onTap,
                   decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.w),
-                    border: InputBorder.none,
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    prefixIcon: widget.prefix == null || widget.prefix == false
-                        ? null
-                        : IconButton(
-                            // padding: EdgeInsets.zero,
-                            onPressed: widget.onPrefixTap ?? null,
-                            icon: Icon(
-                              widget.prefixIcon ?? Icons.info_outline,
-                              color: Colors.black,
-                            )),
-                    suffixIcon: widget.suffix == null || widget.suffix == false
-                        ? null
-                        : IconButton(
-                            // padding: EdgeInsets.zero,
-                            onPressed: widget.onSuffixTap ?? null,
-                            icon: Icon(
-                              widget.suffixIcon ?? Icons.cancel,
-                              color: Colors.black,
-                            )),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: widget.errorMessage == null ||
-                                  widget.errorMessage == false
-                              ? Colors.transparent
-                              : Colors.red),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: widget.errorMessage == null ||
-                                  widget.errorMessage == false
-                              ? AppColors.primaryColor
-                              : Colors.red),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    hintText: widget.placeholderText ?? "Placeholder Text",
-                  ),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.w),
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.transparent,
+                      prefixIcon:
+                          widget.prefix == null || widget.prefix == false
+                              ? null
+                              : IconButton(
+                                  // padding: EdgeInsets.zero,
+                                  onPressed: widget.onPrefixTap ?? null,
+                                  icon: Icon(
+                                    widget.prefixIcon ?? Icons.info_outline,
+                                    color: Colors.black,
+                                  )),
+                      suffixIcon:
+                          widget.suffix == null || widget.suffix == false
+                              ? null
+                              : IconButton(
+                                  // padding: EdgeInsets.zero,
+                                  onPressed: widget.onSuffixTap ?? null,
+                                  icon: Icon(
+                                    widget.suffixIcon ?? Icons.cancel,
+                                    color: Colors.black,
+                                  )),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: widget.errorMessage == null ||
+                                    widget.errorMessage == false
+                                ? Colors.transparent
+                                : Colors.red),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: widget.errorMessage == null ||
+                                    widget.errorMessage == false
+                                ? AppColors.primaryColor
+                                : Colors.red),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      hintText: widget.placeholderText ?? "Placeholder Text",
+                      hintStyle: TextStyle(
+                        fontSize: 14.sp,
+                        letterSpacing: 0.sp,
+                        fontWeight: FontWeight.w400,
+                        height: 24.h / 14.sp,
+                        color: Colors.grey,
+                      )),
                 ),
               ),
           if (widget.message != null) ...{

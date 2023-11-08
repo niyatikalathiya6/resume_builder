@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import '../Controllers/resume_controller.dart';
 import '../Utils/constants.dart';
+import 'UserInfo/user_basic_info.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   static const routeName = 'HomeScreen';
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
         init: ResumeController(),
         builder: (resumeController) {
           return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(0),
+              child: AppBar(
+                backgroundColor: AppColors.primaryColor,
+                automaticallyImplyLeading: false,
+              ),
+            ),
             body: resumeController.resumeList.isEmpty
                 ? ListView(
                     children: [
@@ -97,6 +105,8 @@ class HomeScreen extends StatelessWidget {
                             SizedBox(height: 32.h),
                             InkWell(
                               onTap: () async {
+                                Navigator.pushNamed(
+                                    context, UserBasicInfoScreen.routeName);
                               },
                               child: Container(
                                   height: 48.h,
@@ -291,7 +301,8 @@ class HomeScreen extends StatelessWidget {
                                               width: 83.w,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
-                                                  color: Colors.black,
+                                                  color: Colors.blue
+                                                      .withOpacity(0.5),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           20.sp)),
@@ -358,7 +369,9 @@ class HomeScreen extends StatelessWidget {
                 : FloatingActionButton(
                     backgroundColor: AppColors.primaryColor,
                     child: (Icon(Icons.add)),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.pushNamed(context, UserBasicInfoScreen.routeName);
+                    }),
           );
         });
   }
