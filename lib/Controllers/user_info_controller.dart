@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../Models/resume_model.dart';
 import '../main.dart';
 
 class UserInfoController extends GetxController {
+  var args;
+  UserInfoController({this.args});
+  int? index;
   TextEditingController fullNameController = TextEditingController();
   bool validateUserBasicInfoForm = false;
   bool validateUserAddressInfoForm = false;
@@ -62,7 +66,27 @@ class UserInfoController extends GetxController {
 
   @override
   void onInit() {
+    AssignData(args);
+    validateBasicInfo();
+    validateAddressInfo();
     super.onInit();
+  }
+
+  AssignData(args) {
+    if (args != null) {
+      index = args['index'];
+      update();
+      var data = resumeList[index!];
+      ResumeModel resume = ResumeModel.fromJson(data);
+      fullNameController.text = resume.personalInfo!.fullName!;
+      phoneNumberController.text = resume.personalInfo!.mobileNumber!;
+      emailController.text = resume.personalInfo!.email!;
+      addressController.text = resume.address!.address!;
+      zipCodeController.text = resume.address!.zipCode!;
+      countryController.text = resume.address!.country!;
+      selectedState = resume.address!.state!;
+      cityController.text = resume.address!.city!;
+    }
   }
 
   Future<bool> validateBasicInfo() async {
@@ -82,6 +106,8 @@ class UserInfoController extends GetxController {
         countryController.text.isNotEmpty &&
         selectedState.isNotEmpty &&
         cityController.text.isNotEmpty;
+    update();
+
     return validateUserAddressInfoForm;
   }
 
@@ -92,11 +118,6 @@ class UserInfoController extends GetxController {
 
   addResume() async {
     var date = DateFormat.yMMMd().format(DateTime.now());
-    // var resume = {
-    //   'id': resumeList.length,
-    //   'name': firstName,
-    //   'date': date
-    // };
     var resume = {
       'id': resumeList.length,
       'name': firstName,
@@ -110,14 +131,18 @@ class UserInfoController extends GetxController {
         'address': addressController.text,
         'zipCode': zipCodeController.text,
         "country": countryController.text,
-        "state": stateController.text,
+        "state": selectedState,
         "city": cityController.text
       },
       "date": date
     };
-    resumeList.add(resume);
-    update();
-
+    if (index != null) {
+      resumeList[index!] = resume;
+      update();
+    } else {
+      resumeList.add(resume);
+      update();
+    }
     await box.write("resumeList", resumeList);
   }
 }

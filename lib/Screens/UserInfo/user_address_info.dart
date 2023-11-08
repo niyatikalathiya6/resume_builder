@@ -2,7 +2,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:resume_builder/Screens/home_screen.dart';
 
+import '../../Controllers/resume_controller.dart';
 import '../../Controllers/user_info_controller.dart';
 import '../../Utils/InputWidget.dart';
 import '../../Utils/constants.dart';
@@ -79,9 +81,9 @@ class UserAddressScreen extends StatelessWidget {
                         shrinkWrap: true,
                         padding: EdgeInsets.symmetric(horizontal: 25.w),
                         children: [
-                           Column(
+                          Column(
                             children: [
-                             InputWidget(
+                              InputWidget(
                                 textEditingController:
                                     userInfoController.addressController,
                                 inputWidgetHeight: 96.h,
@@ -142,7 +144,7 @@ class UserAddressScreen extends StatelessWidget {
                                     child: DropdownButton2<String>(
                                       isExpanded: true,
                                       hint: Text(
-                                        'Karnataka',
+                                        'Gujarat',
                                         style: TextStyle(
                                           fontSize: 14.sp,
                                           letterSpacing: 0.sp,
@@ -225,9 +227,10 @@ class UserAddressScreen extends StatelessWidget {
                         .validateAddressInfo()
                         .then((value) async {
                       if (value) {
+                        await Get.delete<ResumeController>();
                         await userInfoController.addResume();
-                        Navigator.pushNamed(
-                            context, UserAddressScreen.routeName);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, HomeScreen.routeName, (route) => false);
                       }
                     });
                   },

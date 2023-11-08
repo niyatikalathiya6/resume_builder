@@ -14,8 +14,10 @@ class UserBasicInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)!.settings.arguments;
+    
     return GetBuilder(
-        init: UserInfoController(),
+        init: UserInfoController(args : args),
         builder: (userInfoController) {
           return Scaffold(
             appBar: PreferredSize(
@@ -195,7 +197,6 @@ class UserBasicInfoScreen extends StatelessWidget {
                         .validateBasicInfo()
                         .then((value) async {
                       if (value) {
-                        await userInfoController.addResume();
                         Navigator.pushNamed(
                             context, UserAddressScreen.routeName);
                       }

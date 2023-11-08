@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../Controllers/resume_controller.dart';
+import '../Models/resume_model.dart';
 import '../Utils/constants.dart';
 import 'UserInfo/user_basic_info.dart';
 
@@ -155,12 +156,24 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     "Welcome Back !!",
+                                    style: TextStyle(
+                                        fontSize: 24.sp,
+                                        letterSpacing: 0.sp,
+                                        fontWeight: FontWeight.w600,
+                                        height: 32.h / 24.sp,
+                                        color: Colors.black.withOpacity(0.5)),
                                   ),
                                   SizedBox(height: 8.h),
                                   Text(
                                     resumeController.resumeList[0]['name']
                                         .toString(),
                                     maxLines: 1,
+                                    style: TextStyle(
+                                        fontSize: 26.sp,
+                                        letterSpacing: 0.sp,
+                                        height: 44.h / 36.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
                                   )
                                 ],
                               ),
@@ -204,6 +217,14 @@ class HomeScreen extends StatelessWidget {
                             return SizedBox(height: 24.h);
                           },
                           itemBuilder: (context, index) {
+                            var data = resumeController.resumeList[index!];
+                            ResumeModel resume = ResumeModel.fromJson(data);
+                            print(resume);
+                            print(resume.runtimeType);
+                            // ResumeModel data =
+                            //     resume.runtimeType == "ResumeModel"
+                            //         ? resume
+                            //         : ResumeModel.fromJson(resume);
                             return Material(
                               borderRadius: BorderRadius.circular(8.sp),
                               elevation: 0,
@@ -267,7 +288,7 @@ class HomeScreen extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "${resumeController.resumeList[index]['name'].toString()}",
+                                                  "${resume.name.toString()}",
                                                   style: TextStyle(
                                                       fontSize: 16.sp,
                                                       letterSpacing: 0.sp,
@@ -278,7 +299,7 @@ class HomeScreen extends StatelessWidget {
                                                 ),
                                                 SizedBox(height: 4.h),
                                                 Text(
-                                                    "Updated on ${resumeController.resumeList[index]['date'].toString()}",
+                                                    "Updated on ${resume.date.toString()}",
                                                     style: TextStyle(
                                                         fontSize: 12.sp,
                                                         letterSpacing: 0.sp,
@@ -295,7 +316,11 @@ class HomeScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           InkWell(
-                                            onTap: () async {},
+                                            onTap: () async {
+                                              Navigator.pushNamed(context,
+                                                  UserBasicInfoScreen.routeName,
+                                                  arguments: {'index': index});
+                                            },
                                             child: Container(
                                               height: 32.h,
                                               width: 83.w,
@@ -349,7 +374,16 @@ class HomeScreen extends StatelessWidget {
                                           //     title: "View",
                                           //     onTap: () {}),
                                           Spacer(),
-                                          Icon(Icons.more_vert)
+                                          InkWell(
+                                            onTap: () {
+                                              resumeController
+                                                  .deleteResume(index);
+                                            },
+                                            child: Icon(
+                                              Icons.delete_outlined,
+                                              color: AppColors.redColor,
+                                            ),
+                                          )
                                         ],
                                       )
                                     ]),
@@ -370,7 +404,8 @@ class HomeScreen extends StatelessWidget {
                     backgroundColor: AppColors.primaryColor,
                     child: (Icon(Icons.add)),
                     onPressed: () {
-                      Navigator.pushNamed(context, UserBasicInfoScreen.routeName);
+                      Navigator.pushNamed(
+                          context, UserBasicInfoScreen.routeName);
                     }),
           );
         });
