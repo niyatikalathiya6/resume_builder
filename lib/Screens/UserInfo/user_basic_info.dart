@@ -48,7 +48,6 @@ class UserBasicInfoScreen extends StatelessWidget {
                                 Navigator.pop(context);
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 11.w),
                                 width: 40.sp,
                                 height: 40.sp,
                                 child: Icon(

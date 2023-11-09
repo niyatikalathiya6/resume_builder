@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../Controllers/resume_controller.dart';
 import '../Models/resume_model.dart';
 import '../Utils/constants.dart';
+import 'UserInfo/resume_view.dart';
 import 'UserInfo/user_basic_info.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -344,7 +345,11 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           SizedBox(width: 8.w),
                                           InkWell(
-                                            onTap: () async {},
+                                            onTap: () async {
+                                              Navigator.pushNamed(context,
+                                                  ResumeViewScreen.routeName,
+                                                  arguments: {'index': index});
+                                            },
                                             child: Container(
                                               height: 32.h,
                                               width: 83.w,

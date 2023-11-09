@@ -60,7 +60,7 @@ class UserAddressScreen extends StatelessWidget {
                         ),
                       ),
                       Spacer(),
-                      Text("Basic Information",
+                      Text("Address Information",
                           style: TextStyle(
                               fontSize: 16.sp,
                               letterSpacing: 0.sp,
